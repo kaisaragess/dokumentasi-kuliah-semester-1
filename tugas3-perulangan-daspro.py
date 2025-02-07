@@ -1,4 +1,4 @@
-#header
+# Header
 print('''
       GEROBAK FRIED CHICKEN
 ----------------------------------
@@ -9,51 +9,61 @@ P        Paha                Rp2.000
 S        Sayap               Rp1.500
 ----------------------------------''')
 
-#inisiasi variabel
+# Inisiasi variabel
 jenis_potong = []
 harga_satuan = []
 byk_beli = []
 jumlah_harga = []
 
-#proses
-byk_pesanan = int(input("banyak pesanan = "))
+# Proses
+byk_pesanan = int(input("Banyak pesanan = "))
 
-for i in range(byk_pesanan) :
-    print("Pesanan Ke - ",i+1)
-    input_kd_ptg = input("Kode Potong (D/P/S) = ")
+for i in range(byk_pesanan):
+    print(f"Pesanan Ke - {i+1}")
+    while True:
+        input_kd_ptg = input("Kode Potong (D/P/S) = ").upper()
+        if input_kd_ptg in ["D", "P", "S"]:
+            break
+        print("Kode tidak valid. Masukkan D, P, atau S.")
 
-    if input_kd_ptg == "D" :
-        jenis_potong.append(input_kd_ptg)
+    if input_kd_ptg == "D":
+        jenis_potong.append("Dada")
         harga_satuan.append(2500)
-    elif input_kd_ptg == "P" :
-        jenis_potong.append(input_kd_ptg)
+    elif input_kd_ptg == "P":
+        jenis_potong.append("Paha")
         harga_satuan.append(2000)
-    elif input_kd_ptg == "S" :
-        jenis_potong.append(input_kd_ptg)
+    elif input_kd_ptg == "S":
+        jenis_potong.append("Sayap")
         harga_satuan.append(1500)
-    
-    byk_beli.append(input("Banyak Potong = "))
 
-for j in range(byk_pesanan) :
-    jumlah_harga.append((float(harga_satuan[j]))*(float(byk_beli[j])))
+    while True:
+        try:
+            byk_beli.append(int(input("Banyak Potong = ")))
+            break
+        except ValueError:
+            print("Masukkan angka yang valid.")
 
-#output
+# Hitung jumlah harga
+for j in range(byk_pesanan):
+    jumlah_harga.append(harga_satuan[j] * byk_beli[j])
+
+# Output
 print('''
 ===================================================================================
-No.     JenisPotong     HargaSatuan     BanyakBeli      JumlahHarga
+No.     Jenis Potong     Harga Satuan     Banyak Beli      Jumlah Harga
 ===================================================================================
 ''')
 
-for k in range(byk_pesanan) :
-    print("%s \t %s \t\t %s \t\t %s \t\t Rp%s" % (k+1, jenis_potong[k], harga_satuan[k], byk_beli[k], jumlah_harga[k]))
+for k in range(byk_pesanan):
+    print(f"{k+1} \t {jenis_potong[k]} \t\t Rp{harga_satuan[k]} \t\t {byk_beli[k]} \t\t Rp{jumlah_harga[k]}")
 
 print("====================================================================================")
 
-jumlah_bayar = 0
+# Hitung total bayar
+jumlah_bayar = sum(jumlah_harga)
+pajak = jumlah_bayar * 0.1
+total_bayar = jumlah_bayar + pajak
 
-for l in range(len(jumlah_harga)) :
-    jumlah_bayar = jumlah_bayar + float(jumlah_harga[l])
-
-print("Jumlah bayar Rp", str(jumlah_bayar))
-print("Pajak 10 % Rp", str(jumlah_bayar*0.1))
-print("Total Bayar Rp", str((jumlah_bayar)+(jumlah_bayar*0.1)))
+print(f"Jumlah bayar \t Rp{jumlah_bayar}")
+print(f"Pajak 10% \t Rp{pajak}")
+print(f"Total Bayar \t Rp{total_bayar}")
